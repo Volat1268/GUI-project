@@ -10,8 +10,8 @@ FONT_WATCH = ("Arial", 34, "bold")
 FONT_LABEL = ("Times New Roman", 30, "bold")
 COLOR_WATCH = "white"
 CHECKMARK = "✓"
-WORK_MIN = 1
-SHORT_BREAK_MIN = 1
+WORK_MIN = 25
+SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 counter = NONE
 reps = 0
@@ -19,6 +19,12 @@ reps = 0
 # ---------------------------- TIMER RESET ------------------------------- # 
 def reset_timer():
     window.after_cancel(counter)
+    timer_label.config(text="Timer", fg=GREEN)
+    canvas.itemconfig(timer_count, text="00:00")
+    check_label.config(text="")
+    global reps
+    reps = 0
+    
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 def start_timer():
     global reps
