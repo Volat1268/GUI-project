@@ -51,7 +51,8 @@ change
 the text''', fg="blue", font=("Courier New", 16, "normal"), justify="left")
 
 
-button = tk.Button(window, text="Klick me!",
+button = tk.Button(
+    							 window, text="Klick me!",
                    relief="groove", bd=10,
                    command=change_label
                    )
