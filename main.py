@@ -10,13 +10,15 @@ FONT_WATCH = ("Arial", 34, "bold")
 FONT_LABEL = ("Times New Roman", 30, "bold")
 COLOR_WATCH = "white"
 CHECKMARK = "✓"
-WORK_MIN = 25
-SHORT_BREAK_MIN = 5
+WORK_MIN = 1
+SHORT_BREAK_MIN = 1
 LONG_BREAK_MIN = 20
+counter = NONE
 reps = 0
 
 # ---------------------------- TIMER RESET ------------------------------- # 
-
+def reset_timer():
+    window.after_cancel(counter)
 # ---------------------------- TIMER MECHANISM ------------------------------- # 
 def start_timer():
     global reps
@@ -26,10 +28,13 @@ def start_timer():
     long_breack_sec = LONG_BREAK_MIN * 60
     if reps == 8:
         count_down(long_breack_sec)
+        timer_label.config(text="Break", fg=RED)
     elif reps % 2 == 0:
         count_down(short_break_sec)
+        timer_label.config(text="Break", fg=PINK)
     else:
         count_down(work_sec) 
+        timer_label.config(text="Work", fg=GREEN)
         
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- # 
@@ -40,9 +45,17 @@ def count_down(count):
         time_sec = f"0{time_sec}"
     canvas.itemconfig(timer_count, text=f"{time_min}:{time_sec}")
     if count > 0:
-    	window.after(1000, count_down, count - 1)
+        global counter
+        counter = window.after(1000, count_down, count - 1)
     else:
         start_timer()
+        marks = ""
+        work_session = math.floor(reps / 2)
+        for i in range(work_session):
+            marks += CHECKMARK
+        check_label.config(text=marks)
+        
+
 # ---------------------------- UI SETUP ------------------------------- #
 
 # --------window-----------
@@ -59,7 +72,6 @@ canvas.create_image(100, 110, image=tomato_img)
 timer_count = canvas.create_text(100, 130, text="00:00", fill=COLOR_WATCH, font=FONT_WATCH)
 canvas.grid(row=1, column=1)
 
-count_down(5)
 # -------------TIMER label--------------
 timer_label = Label(window, text="Timer", bg=YELLOW, font=FONT_LABEL, fg=GREEN)
 timer_label.grid(row=0, column=1)
@@ -69,11 +81,11 @@ start_button = Button(window, command=start_timer, text="Start", bg="white",acti
 start_button.grid(row=2, column=0)
 
 # -----------RESET button -------------
-reset_button = Button(window, text="Reset", bg="white",activebackground=YELLOW, highlightthickness=0)
+reset_button = Button(window, text="Reset", bg="white",activebackground=YELLOW, highlightthickness=0, command=reset_timer)
 reset_button.grid(row=2, column=2)
 
 # -----------CHECKMARK button -------------
-check_label = Label(window, text=CHECKMARK, bg=YELLOW, foreground=GREEN)
+check_label = Label(window, bg=YELLOW, foreground=GREEN)
 check_label.grid(row=3, column=1)
 
 
