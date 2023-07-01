@@ -2,23 +2,40 @@ from tkinter import *
 
 root = Tk()
 root.title("fahrenheit to celsius")
+root.configure(padx=10, pady=5)
 
-fahrenheit_var = StringVar()
-celsius_var = StringVar()
+celsius = StringVar()
+fahrenheit = StringVar()
+
+def convert():
+    fahren_temp = float(fahrenheit.get())
+    cels_temp = round((fahren_temp - 32) * 5 / 9, 2)
+    celsius.set(str(cels_temp))
 
 fahrenheit_label = Label(root,
-                        text="Enter Fahrenheit:" )
+                        text="Enter Fahrenheit:",
+                        )
+
 fahrenheit_enter = Entry(root,
                          borderwidth=1,
                          relief="solid",
-                         width=20,                         
-                         textvariable=fahrenheit_var,
+                         width=20,
+                         textvariable=fahrenheit,               
                          )
+fahrenheit_enter.focus_set()
+
 tocelcius_button = Button(root,
-                          text="Convert")
+                          width=10,
+                          text="Convert",
+                          command=convert,
+                          )
+                        
 celsius_label = Label(root,
-                      text="Celsius temperatur")
-result_label = Label()
+                      text="Celsius temperatur:"
+                      )
+result_label = Label(root,
+                     textvariable=celsius
+                     )
 
 fahrenheit_label.grid(row=0, column=0)
 fahrenheit_enter.grid(row=0, column=1)
