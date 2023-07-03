@@ -16,13 +16,13 @@ fahrenheit_label = Label(root,
                         text="Enter Fahrenheit:",
                         )
 
-fahrenheit_enter = Entry(root,
+fahrenheit_entry = Entry(root,
                          borderwidth=1,
                          relief="solid",
                          width=20,
                          textvariable=fahrenheit,               
                          )
-fahrenheit_enter.focus_set()
+fahrenheit_entry.focus()
 
 tocelcius_button = Button(root,
                           width=10,
@@ -38,7 +38,7 @@ result_label = Label(root,
                      )
 
 fahrenheit_label.grid(row=0, column=0)
-fahrenheit_enter.grid(row=0, column=1)
+fahrenheit_entry.grid(row=0, column=1)
 celsius_label.grid(row=1, column=0)
 result_label.grid(row=1, column=1)
 tocelcius_button.grid(row=2, column=0)

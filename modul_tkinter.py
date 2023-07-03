@@ -3,7 +3,7 @@ from tkinter import ttk
 
 root = Tk()
 root.title("My GUI project")
-root.iconbitmap("./python_icon.ico")
+root.iconbitmap("./assets/python_icon.ico")
 
 root_width = 800
 root_hight = 600
