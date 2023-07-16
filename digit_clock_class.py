@@ -7,21 +7,37 @@ main_frame = tk.Frame(root)
 main_frame.grid(row=0, column=0)
 
 class DigitalClock():
-    def __init__(self, master, clock_backround, clock_foreground, clock_row, clock_column):
+    def __init__(self, master):
         self.master = master
-        self.clock_Label = tk.Label(self.master, bg=clock_backround, fg=clock_foreground, font='Arial 80 italic', padx=20, pady=10)
-        self.clock_Label.grid(row=clock_row, column=clock_column)
+        self.display_clock()
+        self.add_menu()
         self.display_time()
-        
+
+    def display_clock(self):
+        self.clock_Label = tk.Label(self.master, bg='black', fg='red', font='Arial 80 italic', padx=20, pady=10)
+        self.clock_Label.grid(row=0, column=0)
+
+    def small_font(self):
+        self.clock_Label.config(font='Arial 20 normal')
+    def large_font(self):
+        self.clock_Label.config(font='Arial 120 bold')
+
+    def add_menu(self):
+        self.menu = tk.Menu(self.master)
+        self.sub_menu = tk.Menu(self.menu, tearoff=0)
+        self.sub_menu.add_command(label='Small Font Size', command=self.small_font)
+        self.sub_menu.add_command(label='Large Font Size', command=self.large_font)
+        self.menu.add_cascade(label='settings', menu=self.sub_menu)
+        self.master.config(menu=self.menu)
+
+
     def display_time(self):
         self.current_time = tm.strftime('%H:%M:%S')
         self.clock_Label.config(text=self.current_time)
-        self.master.after(2000, self.display_time)
+        self.master.after(1000, self.display_time)
 
-my_clock_one = DigitalClock(main_frame, clock_backround='black', clock_foreground='red', clock_row=0, clock_column=0)
-my_clock_two = DigitalClock(main_frame, clock_backround='red', clock_foreground='black', clock_row=0, clock_column=1)
-my_clock_three = DigitalClock(main_frame, clock_backround='blue', clock_foreground='yellow', clock_row=1, clock_column=0)
-my_clock_four = DigitalClock(main_frame, clock_backround='yellow', clock_foreground='blue', clock_row=1, clock_column=1)
+my_clock = DigitalClock(root)
+
 
 
 root.mainloop()
